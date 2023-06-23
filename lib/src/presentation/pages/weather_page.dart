@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/src/presentation/pages/settings_page.dart';
 
 import '../../application/bloc/weather/weather_bloc.dart';
 import '../../application/bloc/weather/weather_event.dart';
@@ -9,15 +10,28 @@ import '../../utils/constants.dart';
 class WeatherPage extends StatelessWidget {
   const WeatherPage({Key? key}) : super(key: key);
 
+  static const routeName = "/";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         title: Text(
           'Weather',
           style: TextStyle(color: Colors.orange),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              /// Navigate to the settings page. If user leaves and returns to
+              /// the app after it has been killed while running in the background,
+              /// the navigation stack is restored.
+              Navigator.restorablePushNamed(context, SettingsPage.routeName);
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -83,7 +97,7 @@ class WeatherPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Temperature',
+                                'Temperature (C)',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 1.2,
@@ -106,7 +120,7 @@ class WeatherPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Pressure',
+                                'Pressure (hPa)',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 1.2,
@@ -128,7 +142,7 @@ class WeatherPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                'Humidity',
+                                'Humidity (%)',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   letterSpacing: 1.2,
